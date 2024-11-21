@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">netlogger</string>
+    <string name="hint_search">Search by url</string>
+    <string name="title_activity_net_log_detail_fragment">NetLogDetailFragment</string>
+    <string name="tab_text_request">Request</string>
+    <string name="tab_text_response">Response</string>
+    <string name="header">Header</string>
+    <string name="body">Body</string>
+    <string name="url">URL:</string>
+    <string name="response">Response</string>
+</resources>

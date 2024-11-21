@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:route="@string/app_name"
+    app:startDestination="@id/listLogScreen">
+
+    <fragment
+        android:id="@+id/listLogScreen"
+        android:name="com.koai.netlogger.ui.list.ListLogScreen"
+        android:label="ListLogScreen" />
+    <fragment
+        android:id="@+id/detailLogScreen"
+        android:name="com.koai.netlogger.ui.detail.DetailLogScreen"
+        android:label="DetailLogScreen" />
+    <action
+        android:id="@+id/action_global_listLogScreen"
+        app:destination="@id/listLogScreen" />
+    <action
+        android:id="@+id/action_global_detailLogScreen"
+        app:destination="@id/detailLogScreen" />
+</navigation>
