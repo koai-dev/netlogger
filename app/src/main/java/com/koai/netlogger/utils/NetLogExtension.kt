@@ -1,6 +1,14 @@
 package com.koai.netlogger.utils
 
+import android.content.ClipboardManager
+import android.content.Context
+import android.os.Build
+import android.os.Bundle
+import android.os.Parcelable
+import com.google.gson.Gson
+import com.koai.base.utils.GsonUtils
 import okhttp3.Request
+import okhttp3.RequestBody
 import okhttp3.Response
 import okio.Buffer
 import org.json.JSONArray
@@ -104,4 +112,33 @@ fun Response.formatToString(body: String): String {
     stringBuilder.append("\n")
 
     return stringBuilder.toString()
+}
+
+fun <T : Parcelable> Bundle.getSafeParcelable(
+    name: String,
+    clazz: Class<T>,
+): T? {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        this.getParcelable(name, clazz)
+    } else {
+        this.getParcelable(name)
+    }
+}
+
+fun RequestBody.requestBodyToJson(): String? {
+    // Convert RequestBody to string (assuming it's a JSON)
+    val buffer = okio.Buffer()
+    this.writeTo(buffer)
+    val jsonString = buffer.readUtf8()
+
+    // Optionally, you can parse it into a JSON object (if needed)
+    val jsonObject = Gson().fromJson(jsonString, Any::class.java)
+    return GsonUtils.toJson(jsonObject) // Convert back to JSON string
+}
+
+fun Context.copyToClipboard(text: String, onDone: (() -> Unit)? = null) {
+    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = android.content.ClipData.newPlainText("label", text)
+    clipboard.setPrimaryClip(clip)
+    onDone?.invoke()
 }

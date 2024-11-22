@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
     id("kotlin-parcelize")
+    id("maven-publish")
 }
 
 android {
@@ -11,7 +12,12 @@ android {
 
     defaultConfig {
         minSdk = 24
+        multiDexEnabled = true
+        aarMetadata {
+            minCompileSdk = 29
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -35,9 +41,68 @@ android {
         //noinspection DataBindingWithoutKapt
         dataBinding = true
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
     api(libs.base)
     api(libs.jsonviewer)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                groupId = "com.koai"
+                artifactId = "netlogger"
+                version = "1.0.0"
+
+                afterEvaluate {
+                    from(components["release"])
+                }
+            }
+        }
+    }
+}
+
+tasks.register("localBuild") {
+    dependsOn("assembleRelease")
+}
+
+tasks.register("createReleaseTag") {
+    doLast {
+        val tagName = "v1.0.0"
+        try {
+            exec {
+                commandLine("git", "tag", "-a", tagName, "-m", "Release tag $tagName")
+            }
+
+            exec {
+                commandLine("git", "push", "origin", tagName)
+            }
+        } catch (e: Exception) {
+            println(e.toString())
+        }
+    }
+}
+/**
+ * to build new version library: run in terminal
+ *  ./gradlew cleanBuildPublish
+ *
+ */
+tasks.register("cleanBuildPublish") {
+    dependsOn("clean")
+    dependsOn("localBuild")
+    dependsOn("publishReleasePublicationToMavenRepository")
+    val assembleReleaseTask = getTasksByName("localBuild", false).stream().findFirst().orElse(null)
+    if (assembleReleaseTask != null) {
+        assembleReleaseTask.mustRunAfter("clean")
+        assembleReleaseTask.finalizedBy("publishReleasePublicationToMavenRepository")
+    }
 }
