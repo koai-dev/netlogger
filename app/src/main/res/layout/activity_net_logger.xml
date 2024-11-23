@@ -36,7 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/point_top"
-            app:navGraph="@navigation/nav_graph" />
+            app:navGraph="@navigation/nav_graph_net_log" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
