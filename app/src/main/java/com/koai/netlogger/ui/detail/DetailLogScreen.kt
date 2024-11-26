@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import com.koai.base.main.extension.navigatorViewModel
 import com.koai.base.main.extension.safeClick
 import com.koai.base.main.screens.BaseScreen
+import com.koai.base.utils.GsonUtils
 import com.koai.netlogger.NetLogNavigator
 import com.koai.netlogger.R
 import com.koai.netlogger.databinding.ScreenDetailLogBinding
@@ -25,16 +26,26 @@ class DetailLogScreen :
             head = "$head \n$type : $value"
         }
         with(binding) {
-            url.text = data?.url
-            method.text = data?.request?.method
-            header.text = head
-            code.text = data?.response?.code.toString()
-            data?.request?.body?.requestBodyToJson().let { body ->
-                rvJsonBodyRequest.bindJson(body)
-            }
-            data?.responseBody?.let {
-                rvJsonResponse.bindJson(it)
-                bodyText.text = it
+            try{
+                url.text = data?.url
+                method.text = data?.request?.method
+                header.text = head
+                code.text = data?.response?.code.toString()
+                data?.request?.body?.requestBodyToJson().let { body ->
+                    GsonUtils.toJson(body)?.let {
+                        ctnBody.setJson(it)
+                    }
+                }
+                data?.responseBody?.let {
+                    GsonUtils.toJson(it)?.let {body->
+                        rvJsonResponse.setJson(body)
+                    }
+                    bodyText.text = it
+                }
+            }catch (e: Exception){
+                e.printStackTrace()
+                Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
+                router?.onPopScreen()
             }
             btnBack.safeClick {
                 router?.onPopScreen()
@@ -48,7 +59,7 @@ class DetailLogScreen :
                 Toast.makeText(activity, "Response Copied", Toast.LENGTH_SHORT).show()
             }
             txtBody.safeClick {
-                ctnBody.isVisible = !rvJsonBodyRequest.isVisible
+                ctnBody.isVisible = !ctnBody.isVisible
                 bodyText.isVisible = !bodyText.isVisible
             }
         }

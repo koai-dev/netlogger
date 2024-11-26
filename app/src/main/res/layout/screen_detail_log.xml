@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout >
-    <androidx.core.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -58,8 +58,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:textColor="#E91E63"
                 android:layout_marginTop="4dp"
+                android:textColor="#E91E63"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/url"
@@ -80,8 +80,8 @@
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/header"
                 android:layout_marginTop="16dp"
+                android:text="@string/header"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,10 +103,10 @@
                 android:id="@+id/txt_body"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/body"
-                android:textStyle="bold"
                 android:layout_marginTop="4dp"
                 android:paddingVertical="12dp"
+                android:text="@string/body"
+                android:textStyle="bold"
                 app:drawableEndCompat="@drawable/ic_down"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,42 +117,33 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/body"
                 android:textColor="#4CAF50"
-                android:maxLines="2"
-                android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txt_body" />
 
-            <HorizontalScrollView
+            <com.paulvarry.jsonviewer.JsonViewer
                 android:id="@+id/ctn_body"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:fillViewport="true"
-                android:minHeight="300dp"
-                android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/body_text">
-                <com.yuyh.jsonviewer.library.JsonRecyclerView
-                    android:id="@+id/rv_json_body_request"
-                    android:layout_width="wrap_content"
-                    android:minHeight="300dp"
-                    android:layout_height="match_parent" />
-            </HorizontalScrollView>
+                app:layout_constraintTop_toBottomOf="@id/body_text" />
 
             <ImageView
                 android:id="@+id/btn_copy_url"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:contentDescription="@string/app_name"
-                android:padding="12dp"
-                android:clickable="true"
-                android:focusable="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/app_name"
+                android:focusable="true"
+                android:padding="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ctn_header"
                 app:srcCompat="@drawable/ic_copy" />
@@ -174,31 +165,22 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@string/response"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ctn_body" />
 
-            <HorizontalScrollView
+            <com.paulvarry.jsonviewer.JsonViewer
+                android:id="@+id/rv_json_response"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
-                android:minHeight="300dp"
-                android:fillViewport="true"
-                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_copy_response"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView3">
-
-                <com.yuyh.jsonviewer.library.JsonRecyclerView
-                    android:minHeight="300dp"
-                    android:id="@+id/rv_json_response"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" />
-            </HorizontalScrollView>
+                app:layout_constraintTop_toBottomOf="@id/textView3" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
