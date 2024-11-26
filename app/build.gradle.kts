@@ -61,7 +61,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 groupId = "com.koai"
                 artifactId = "netlogger"
-                version = "1.0.3"
+                version = "1.0.4"
 
                 afterEvaluate {
                     from(components["release"])
@@ -77,7 +77,7 @@ tasks.register("localBuild") {
 
 tasks.register("createReleaseTag") {
     doLast {
-        val tagName = "v1.0.3"
+        val tagName = "v1.0.4"
         try {
             exec {
                 commandLine("git", "tag", "-a", tagName, "-m", "Release tag $tagName")
