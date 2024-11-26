@@ -48,7 +48,7 @@ class DetailLogScreen :
                 Toast.makeText(activity, "Response Copied", Toast.LENGTH_SHORT).show()
             }
             txtBody.safeClick {
-                rvJsonBodyRequest.isVisible = !rvJsonBodyRequest.isVisible
+                ctnBody.isVisible = !rvJsonBodyRequest.isVisible
                 bodyText.isVisible = !bodyText.isVisible
             }
         }
