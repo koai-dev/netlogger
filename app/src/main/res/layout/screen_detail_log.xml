@@ -128,9 +128,10 @@
             <HorizontalScrollView
                 android:id="@+id/ctn_body"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginHorizontal="16dp"
                 android:fillViewport="true"
+                android:minHeight="300dp"
                 android:orientation="vertical"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -180,14 +181,17 @@
 
             <HorizontalScrollView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
+                android:minHeight="300dp"
                 android:fillViewport="true"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_copy_response"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView3">
+
                 <com.yuyh.jsonviewer.library.JsonRecyclerView
                     android:id="@+id/rv_json_response"
                     android:layout_width="wrap_content"

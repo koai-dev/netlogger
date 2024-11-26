@@ -1,6 +1,7 @@
 package com.koai.netlogger.ui.detail
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.core.view.isVisible
 import com.koai.base.main.extension.navigatorViewModel
 import com.koai.base.main.extension.safeClick
@@ -40,18 +41,15 @@ class DetailLogScreen :
             }
             btnCopyUrl.safeClick {
                 activity.copyToClipboard(data?.url.toString())
+                Toast.makeText(activity, "Url Copied", Toast.LENGTH_SHORT).show()
             }
             btnCopyResponse.safeClick {
                 activity.copyToClipboard(data?.responseBody.toString())
+                Toast.makeText(activity, "Response Copied", Toast.LENGTH_SHORT).show()
             }
             txtBody.safeClick {
                 rvJsonBodyRequest.isVisible = !rvJsonBodyRequest.isVisible
                 bodyText.isVisible = !bodyText.isVisible
-                txtBody.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    if (rvJsonBodyRequest.isVisible) R.drawable.ic_up else R.drawable.ic_down,
-                    0)
             }
         }
     }
