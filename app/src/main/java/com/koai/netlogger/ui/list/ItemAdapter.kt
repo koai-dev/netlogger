@@ -10,11 +10,11 @@ import com.koai.netlogger.model.NetLogItem
 import com.koai.netlogger.utils.format
 import java.util.Date
 
-class ItemAdapter: BaseListAdapter<NetLogItem, ItemNetlogBinding>() {
+class ItemAdapter(private val onClick: (NetLogItem)->Unit): BaseListAdapter<NetLogItem, ItemNetlogBinding>() {
     override fun bindView(holder: VH, binding: ItemNetlogBinding, position: Int) {
         val data = getItem(position)
-        binding.root.safeClick {
-            listener?.click(position, data)
+        binding.mainItemNet.safeClick {
+            onClick.invoke(data)
         }
 
         binding.url.text = data.url
@@ -23,6 +23,7 @@ class ItemAdapter: BaseListAdapter<NetLogItem, ItemNetlogBinding>() {
         data.response?.let { setCodeColor(it.code, binding) }
         data.response?.let { setTimestamp(it.receivedResponseAtMillis, binding) }
         setDelayBetweenRequestAndResponse(data, binding)
+        binding.executePendingBindings()
     }
 
     @SuppressLint("DefaultLocale", "SetTextI18n")

@@ -7,7 +7,10 @@
         android:layout_width="match_parent"
         app:cardCornerRadius="8dp"
         android:layout_margin="4dp"
+        android:id="@+id/main_item_net"
         android:padding="4dp"
+        android:clickable="true"
+        android:focusable="true"
         android:background="@null"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
