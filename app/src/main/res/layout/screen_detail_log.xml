@@ -140,7 +140,7 @@
                 <com.yuyh.jsonviewer.library.JsonRecyclerView
                     android:id="@+id/rv_json_body_request"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
             </HorizontalScrollView>
 
             <ImageView
@@ -195,7 +195,7 @@
                 <com.yuyh.jsonviewer.library.JsonRecyclerView
                     android:id="@+id/rv_json_response"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent" />
             </HorizontalScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

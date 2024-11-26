@@ -29,7 +29,7 @@ class DetailLogScreen :
             method.text = data?.request?.method
             header.text = head
             code.text = data?.response?.code.toString()
-            data?.request?.body?.requestBodyToJson()?.let { body ->
+            data?.request?.body?.requestBodyToJson().let { body ->
                 rvJsonBodyRequest.bindJson(body)
             }
             data?.responseBody?.let {

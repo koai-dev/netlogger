@@ -125,15 +125,12 @@ fun <T : Parcelable> Bundle.getSafeParcelable(
     }
 }
 
-fun RequestBody.requestBodyToJson(): String? {
+fun RequestBody.requestBodyToJson(): String {
     // Convert RequestBody to string (assuming it's a JSON)
-    val buffer = okio.Buffer()
+    val buffer = Buffer()
     this.writeTo(buffer)
     val jsonString = buffer.readUtf8()
-
-    // Optionally, you can parse it into a JSON object (if needed)
-    val jsonObject = Gson().fromJson(jsonString, Any::class.java)
-    return GsonUtils.toJson(jsonObject) // Convert back to JSON string
+    return jsonString
 }
 
 fun Context.copyToClipboard(text: String, onDone: (() -> Unit)? = null) {
