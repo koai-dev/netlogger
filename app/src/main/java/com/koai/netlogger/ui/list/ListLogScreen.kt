@@ -3,6 +3,7 @@ package com.koai.netlogger.ui.list
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import com.koai.base.main.extension.navigatorViewModel
 import com.koai.base.main.extension.safeClick
 import com.koai.base.main.extension.screenViewModel
@@ -15,7 +16,7 @@ class ListLogScreen : BaseScreen<ScreenListLogBinding, ListLogRouter, NetLogNavi
     override val navigator: NetLogNavigator by navigatorViewModel()
     override val viewModel: ListLogViewModel by screenViewModel()
     private val adapter = ItemAdapter{
-        router?.gotoDetailLog(it)
+        navigator.gotoDetailLog(it)
     }
 
     override fun initView(savedInstanceState: Bundle?, binding: ScreenListLogBinding) {

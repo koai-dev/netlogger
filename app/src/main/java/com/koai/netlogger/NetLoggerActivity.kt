@@ -8,14 +8,13 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.koai.base.main.BaseActivity
-import com.koai.base.main.action.navigator.BaseNavigator
 import com.koai.base.main.action.router.BaseRouter
 import com.koai.base.utils.LogUtils
 import com.koai.netlogger.databinding.ActivityNetLoggerBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class NetLoggerActivity : BaseActivity<ActivityNetLoggerBinding, BaseRouter, BaseNavigator>(R.layout.activity_net_logger) {
-    override val navigator: BaseNavigator by viewModel()
+class NetLoggerActivity : BaseActivity<ActivityNetLoggerBinding, BaseRouter, NetLogNavigator>(R.layout.activity_net_logger) {
+    override val navigator: NetLogNavigator by viewModel()
 
     override fun initView(savedInstanceState: Bundle?, binding: ActivityNetLoggerBinding) {
         val windowInsetsController =
