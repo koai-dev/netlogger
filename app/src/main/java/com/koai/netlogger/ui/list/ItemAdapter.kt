@@ -10,8 +10,12 @@ import com.koai.netlogger.model.NetLogItem
 import com.koai.netlogger.utils.format
 import java.util.Date
 
-class ItemAdapter(private val onClick: (NetLogItem)->Unit): BaseListAdapter<NetLogItem, ItemNetlogBinding>() {
-    override fun bindView(holder: VH, binding: ItemNetlogBinding, position: Int) {
+class ItemAdapter(private val onClick: (NetLogItem) -> Unit) : BaseListAdapter<NetLogItem, ItemNetlogBinding>() {
+    override fun bindView(
+        holder: VH,
+        binding: ItemNetlogBinding,
+        position: Int,
+    ) {
         val data = getItem(position)
         binding.mainItemNet.safeClick {
             onClick.invoke(data)
@@ -27,23 +31,33 @@ class ItemAdapter(private val onClick: (NetLogItem)->Unit): BaseListAdapter<NetL
     }
 
     @SuppressLint("DefaultLocale", "SetTextI18n")
-    private fun setDelayBetweenRequestAndResponse(item: NetLogItem, binding: ItemNetlogBinding) {
+    private fun setDelayBetweenRequestAndResponse(
+        item: NetLogItem,
+        binding: ItemNetlogBinding,
+    ) {
         val sendTime = item.response?.sentRequestAtMillis ?: 0
         val receivedTime = item.response?.receivedResponseAtMillis ?: 0
         val differTime = (receivedTime - sendTime).toFloat() / 1000f
         binding.delay.text = String.format("%.2f", differTime) + " s"
     }
 
-    private fun setTimestamp(millis: Long, binding: ItemNetlogBinding) {
+    private fun setTimestamp(
+        millis: Long,
+        binding: ItemNetlogBinding,
+    ) {
         binding.timestamp.text = Date(millis).format("HH:mm")
     }
 
-    private fun setCodeColor(code: Int, binding: ItemNetlogBinding) {
-        val color =  if (code == 200) {
-            ContextCompat.getColor(binding.root.context.applicationContext, android.R.color.holo_green_light)
-        } else {
-            ContextCompat.getColor(binding.root.context.applicationContext, android.R.color.holo_red_light)
-        }
+    private fun setCodeColor(
+        code: Int,
+        binding: ItemNetlogBinding,
+    ) {
+        val color =
+            if (code == 200) {
+                ContextCompat.getColor(binding.root.context.applicationContext, R.color.green)
+            } else {
+                ContextCompat.getColor(binding.root.context.applicationContext, R.color.red)
+            }
         binding.codeColor.setBackgroundColor(color)
     }
 

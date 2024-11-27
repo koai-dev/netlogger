@@ -10,10 +10,11 @@ import com.koai.netlogger.ui.list.ListLogViewModel
 import org.koin.dsl.module
 
 object NetLogModule {
-    fun init() = module {
-        single<INetLogRepository> { NetLogRepositoryImpl() }
-        single { NetLogInterceptor(get()) }
-        navigatorViewModel { NetLogNavigator() }
-        screenViewModel { ListLogViewModel(get()) }
-    }
+    fun init() =
+        module {
+            single<INetLogRepository> { NetLogRepositoryImpl() }
+            single { NetLogInterceptor(get()) }
+            navigatorViewModel { NetLogNavigator() }
+            screenViewModel { ListLogViewModel(get()) }
+        }
 }

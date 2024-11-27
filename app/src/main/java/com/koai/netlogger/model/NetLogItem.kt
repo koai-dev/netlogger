@@ -13,6 +13,6 @@ data class NetLogItem(
     val responseBody: String,
     val requestTime: Long,
     val totalResponseTime: Long,
-     val url: String,
+    val url: String,
     val code: String,
-): Parcelable
+) : Parcelable

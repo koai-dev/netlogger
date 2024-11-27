@@ -16,7 +16,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class NetLoggerActivity : BaseActivity<ActivityNetLoggerBinding, BaseRouter, NetLogNavigator>(R.layout.activity_net_logger) {
     override val navigator: NetLogNavigator by viewModel()
 
-    override fun initView(savedInstanceState: Bundle?, binding: ActivityNetLoggerBinding) {
+    override fun initView(
+        savedInstanceState: Bundle?,
+        binding: ActivityNetLoggerBinding,
+    ) {
         val windowInsetsController =
             WindowCompat.getInsetsController(window, window.decorView)
         windowInsetsController.systemBarsBehavior =
@@ -57,5 +60,4 @@ class NetLoggerActivity : BaseActivity<ActivityNetLoggerBinding, BaseRouter, Net
             }
         }
     }
-
 }

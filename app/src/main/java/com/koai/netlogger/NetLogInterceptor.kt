@@ -9,9 +9,8 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import java.util.concurrent.TimeUnit
 
 class NetLogInterceptor(
-    private val netLogRepository: INetLogRepository
+    private val netLogRepository: INetLogRepository,
 ) : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val requestTime = System.nanoTime()
@@ -28,10 +27,11 @@ class NetLogInterceptor(
         val contentType = response.body.contentType()
         val body: ResponseBody = bodyString.toResponseBody(contentType)
 
-        val responseForSaving = response.newBuilder()
-            .body(body)
-            .request(request)
-            .build()
+        val responseForSaving =
+            response.newBuilder()
+                .body(body)
+                .request(request)
+                .build()
 
         netLogRepository.addItem(
             NetLogItem(
@@ -41,8 +41,8 @@ class NetLogInterceptor(
                 requestTime = requestTime,
                 totalResponseTime = totalResponseTime,
                 url = url,
-                code = code
-            )
+                code = code,
+            ),
         )
         return response.newBuilder().body(body).build()
     }

@@ -17,7 +17,7 @@ interface INetLogRepository {
     /**
      * Get all log entries from the repository
      *
-     * @return  [LiveData] with collection of log records
+     * @return [LiveData] with collection of log records
      */
     fun getItems(): LiveData<MutableList<NetLogItem>>
 

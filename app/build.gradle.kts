@@ -25,7 +25,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -36,7 +36,7 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
         //noinspection DataBindingWithoutKapt
         dataBinding = true
@@ -52,7 +52,6 @@ android {
 
 dependencies {
     implementation(libs.base)
-    api(libs.android.json.viewer)
 }
 
 afterEvaluate {
@@ -61,7 +60,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 groupId = "com.koai"
                 artifactId = "netlogger"
-                version = "1.0.8"
+                version = "1.1.0"
 
                 afterEvaluate {
                     from(components["release"])
@@ -77,7 +76,7 @@ tasks.register("localBuild") {
 
 tasks.register("createReleaseTag") {
     doLast {
-        val tagName = "v1.0.8"
+        val tagName = "v1.1.0"
         try {
             exec {
                 commandLine("git", "tag", "-a", tagName, "-m", "Release tag $tagName")

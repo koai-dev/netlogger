@@ -1,15 +1,11 @@
 [versions]
 agp = "8.7.2"
-androidJsonViewer = "v1.1"
-base = "v1.8.1"
-jsonhandleview = "1.2.2"
+base = "v1.9.1"
 kotlin = "1.9.24"
 
 
 [libraries]
-android-json-viewer = { module = "com.github.pvarry:android-json-viewer", version.ref = "androidJsonViewer" }
 base = { module = "com.github.koai-dev:base", version.ref = "base" }
-jsonhandleview = { module = "com.tzx.json:jsonhandleview", version.ref = "jsonhandleview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

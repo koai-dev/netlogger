@@ -22,5 +22,4 @@ class NetLogRepositoryImpl : INetLogRepository {
     override fun clear() {
         items.postValue(mutableListOf())
     }
-
 }

@@ -28,20 +28,27 @@ class ListLogViewModel(private val repository: INetLogRepository) : BaseViewMode
 
     fun getSearchedLogs(): LiveData<List<NetLogItem>> =
         MediatorLiveData<List<NetLogItem>>().apply {
-
             val onChanged = {
                 val query = searchQuery.value ?: ""
                 val queryList = query.split(" ")
-                val ignoreList = queryList.filter { it.startsWith("-") }
-                    .map { if (it.startsWith("-")) it.replace("-", "") else it }
-                val searchQueryList = if (ignoreList.isEmpty()) queryList else queryList.filter {
-                    !it.contains(getRegex(ignoreList))
-                }
+                val ignoreList =
+                    queryList.filter { it.startsWith("-") }
+                        .map { if (it.startsWith("-")) it.replace("-", "") else it }
+                val searchQueryList =
+                    if (ignoreList.isEmpty()) {
+                        queryList
+                    } else {
+                        queryList.filter {
+                            !it.contains(getRegex(ignoreList))
+                        }
+                    }
                 val items = repository.getItems().value ?: mutableListOf()
-                value = if (query.isEmpty())
-                    items
-                else
-                    items.filter { itemIsValidSearchQuery(it, searchQueryList, ignoreList) }
+                value =
+                    if (query.isEmpty()) {
+                        items
+                    } else {
+                        items.filter { itemIsValidSearchQuery(it, searchQueryList, ignoreList) }
+                    }
             }
 
             addSource(searchQuery) { onChanged.invoke() }
@@ -51,7 +58,7 @@ class ListLogViewModel(private val repository: INetLogRepository) : BaseViewMode
     private fun itemIsValidSearchQuery(
         netLogItem: NetLogItem,
         searchQueryList: List<String>,
-        ignoreList: List<String>
+        ignoreList: List<String>,
     ): Boolean {
         val url = netLogItem.url
         val containsInSearch = url.contains(getRegex(searchQueryList)) || searchQueryList.isEmpty()
@@ -59,7 +66,5 @@ class ListLogViewModel(private val repository: INetLogRepository) : BaseViewMode
         return containsInSearch && notContainsInIgnore
     }
 
-    private fun getRegex(allQueryList: List<String>) =
-        allQueryList.joinToString(separator = "|").toRegex()
-
+    private fun getRegex(allQueryList: List<String>) = allQueryList.joinToString(separator = "|").toRegex()
 }
