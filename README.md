@@ -20,6 +20,8 @@ to open to netlog screen:
 call this:
 ![image](https://github.com/user-attachments/assets/4a1730b4-8b02-4d8a-ad52-402e889de080)
 you can handle by click event or implement shake event
---->  # check in sample project for final guide version
+
+--->  
+# check in sample project for final guide version
 
 
