@@ -23,4 +23,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "netlogger"
 include(":app")
-include(":sample")
+//include(":sample")
