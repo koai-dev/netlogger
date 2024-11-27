@@ -1,8 +1,11 @@
 # Netlogger android lib
 - to use:
  # add this to project:
+ 
 implementation("com.github.koai-dev:base:$lastVersion") (min is v1.9.1)
+
 implementation("com.github.koai-dev:netlogger:$lastVersion") (min is v1.1.2)
+
 - to get lastVersion: copy repo link and paste to jitpack.io
 # in YourApplication:
 add this:
