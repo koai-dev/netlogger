@@ -1,8 +1,11 @@
 # Netlogger android lib
 - to use:
  # add this to project:
+ 
 implementation("com.github.koai-dev:base:$lastVersion") (min is v1.9.1)
+
 implementation("com.github.koai-dev:netlogger:$lastVersion") (min is v1.1.2)
+
 - to get lastVersion: copy repo link and paste to jitpack.io
 # in YourApplication:
 add this:
@@ -17,6 +20,8 @@ to open to netlog screen:
 call this:
 ![image](https://github.com/user-attachments/assets/4a1730b4-8b02-4d8a-ad52-402e889de080)
 you can handle by click event or implement shake event
---->  # check in sample project for final guide version
+
+--->  
+# check in sample project for final guide version
 
 
