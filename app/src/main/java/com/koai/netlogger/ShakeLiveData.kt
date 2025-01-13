@@ -7,9 +7,8 @@ import android.hardware.SensorManager
 import androidx.lifecycle.LiveData
 import kotlin.math.abs
 
-
 class ShakeLiveData(
-    private val sensorManager: SensorManager? = null
+    private val sensorManager: SensorManager? = null,
 ) : LiveData<Boolean>(), SensorEventListener {
     companion object {
         const val SHAKE_THRESHOLD: Float = 15.0f // Shake threshold
@@ -31,9 +30,9 @@ class ShakeLiveData(
     override fun onSensorChanged(event: SensorEvent?) {
         try {
             if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
-                val x = event.values?.get(0)?:0f
-                val y = event.values?.get(1)?:0f
-                val z = event.values?.get(2)?:0f
+                val x = event.values?.get(0) ?: 0f
+                val y = event.values?.get(1) ?: 0f
+                val z = event.values?.get(2) ?: 0f
 
                 val currentTime = event.timestamp
                 val diffTime = currentTime - lastShakeTime
@@ -58,13 +57,15 @@ class ShakeLiveData(
                     lastShakeTime = currentTime
                 }
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-
+    override fun onAccuracyChanged(
+        sensor: Sensor?,
+        accuracy: Int,
+    ) {
     }
 
     override fun onInactive() {

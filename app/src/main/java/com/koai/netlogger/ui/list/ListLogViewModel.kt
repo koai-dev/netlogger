@@ -11,6 +11,15 @@ class ListLogViewModel(private val repository: INetLogRepository) : BaseViewMode
     private val _searchQuery = MutableLiveData("")
     private val searchQuery: LiveData<String> = _searchQuery
 
+    private val _currentItemNetLog = MutableLiveData<NetLogItem?>(null)
+    val currentItemNetLog: LiveData<NetLogItem?> = _currentItemNetLog
+
+    fun setCurrentNetLog(item: NetLogItem?) {
+        launchCoroutine {
+            _currentItemNetLog.postValue(item)
+        }
+    }
+
     fun setSearchQuery(query: String) {
         launchCoroutine {
             if (_searchQuery.value == query) return@launchCoroutine
@@ -60,10 +69,14 @@ class ListLogViewModel(private val repository: INetLogRepository) : BaseViewMode
         searchQueryList: List<String>,
         ignoreList: List<String>,
     ): Boolean {
-        val url = netLogItem.url
-        val containsInSearch = url.contains(getRegex(searchQueryList)) || searchQueryList.isEmpty()
-        val notContainsInIgnore = !url.contains(getRegex(ignoreList)) || ignoreList.isEmpty()
-        return containsInSearch && notContainsInIgnore
+        try {
+            val url = netLogItem.url
+            val containsInSearch = url.contains(getRegex(searchQueryList)) || searchQueryList.isEmpty()
+            val notContainsInIgnore = !url.contains(getRegex(ignoreList)) || ignoreList.isEmpty()
+            return containsInSearch && notContainsInIgnore
+        } catch (e: Exception) {
+            return false
+        }
     }
 
     private fun getRegex(allQueryList: List<String>) = allQueryList.joinToString(separator = "|").toRegex()

@@ -245,6 +245,9 @@ class JsonViewerAdapter : BaseJsonViewerAdapter<JsonViewerAdapter.JsonItemViewHo
             if (clicked) {
                 itemView.clickIcon()
             }
+            itemView.setOnClickListener {
+                itemView.clickIcon()
+            }
         } else if (value is JSONArray) {
             itemView.showIcon(true)
             valueBuilder.append("Array[").append(value.length().toString()).append("]")
@@ -276,6 +279,9 @@ class JsonViewerAdapter : BaseJsonViewerAdapter<JsonViewerAdapter.JsonItemViewHo
                 ),
             )
             if (clicked) {
+                itemView.clickIcon()
+            }
+            itemView.setOnClickListener {
                 itemView.clickIcon()
             }
         } else if (value is String) {

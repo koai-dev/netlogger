@@ -1,7 +1,7 @@
 package com.koai.netlogger.di
 
+import com.koai.base.main.extension.journeyViewModel
 import com.koai.base.main.extension.navigatorViewModel
-import com.koai.base.main.extension.screenViewModel
 import com.koai.netlogger.NetLogInterceptor
 import com.koai.netlogger.NetLogNavigator
 import com.koai.netlogger.repository.INetLogRepository
@@ -15,6 +15,6 @@ object NetLogModule {
             single<INetLogRepository> { NetLogRepositoryImpl() }
             single { NetLogInterceptor(get()) }
             navigatorViewModel { NetLogNavigator() }
-            screenViewModel { ListLogViewModel(get()) }
+            journeyViewModel { ListLogViewModel(get()) }
         }
 }

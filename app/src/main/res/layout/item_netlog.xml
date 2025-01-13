@@ -12,6 +12,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="@null"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -67,6 +68,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="4dp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 style="@style/NetLogTextStyle"
                 tools:text="https://square.github.io/okhttp/"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +93,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
                 style="@style/NetLogTextSubtitleStyle"
+                android:textColor="#FF1744"
                 tools:text="image/gif"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/method"

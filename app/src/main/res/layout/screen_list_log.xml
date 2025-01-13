@@ -12,6 +12,9 @@
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_clear" />
@@ -50,6 +53,8 @@
             android:src="@drawable/round_delete_sweep_24"
             android:contentDescription="@string/app_name"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@id/searchContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/searchContainer" />
