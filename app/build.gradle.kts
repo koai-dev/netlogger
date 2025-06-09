@@ -1,14 +1,14 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.0"
+    id("org.jlleitschuh.gradle.ktlint") version "12.3.0"
     id("kotlin-parcelize")
     id("maven-publish")
 }
-
+val libVersion = "1.1.5"
 android {
     namespace = "com.koai.netlogger"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
@@ -60,7 +60,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 groupId = "com.koai"
                 artifactId = "netlogger"
-                version = "1.1.4"
+                version = libVersion
 
                 afterEvaluate {
                     from(components["release"])
@@ -76,17 +76,25 @@ tasks.register("localBuild") {
 
 tasks.register("createReleaseTag") {
     doLast {
-        val tagName = "v1.1.4"
+        val tagName = "v$libVersion"
         try {
-            exec {
-                commandLine("git", "tag", "-a", tagName, "-m", "Release tag $tagName")
-            }
+            println("Creating tag: $tagName")
 
-            exec {
-                commandLine("git", "push", "origin", tagName)
-            }
+            providers
+                .exec {
+                    commandLine("git", "tag", "-a", tagName, "-m", "Release tag $tagName")
+                }.result
+                .get()
+
+            providers
+                .exec {
+                    commandLine("git", "push", "origin", tagName)
+                }.result
+                .get()
+
+            println("Successfully created and pushed tag: $tagName")
         } catch (e: Exception) {
-            println(e.toString())
+            println("❌ Failed to create/push tag $tagName: ${e.message}")
         }
     }
 }
