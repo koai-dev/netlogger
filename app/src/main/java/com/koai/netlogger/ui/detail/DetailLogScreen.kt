@@ -3,10 +3,11 @@ package com.koai.netlogger.ui.detail
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.isVisible
-import com.koai.base.main.extension.journeyViewModel
-import com.koai.base.main.extension.navigatorViewModel
-import com.koai.base.main.extension.safeClick
-import com.koai.base.main.screens.BaseScreen
+import com.koai.base.core.ui.extension.safeClick
+import com.koai.base.core.ui.extension.withSafeContext
+import com.koai.base.core.ui.screens.BaseScreen
+import com.koai.base.di.journeyViewModel
+import com.koai.base.di.navigatorViewModel
 import com.koai.netlogger.NetLogNavigator
 import com.koai.netlogger.R
 import com.koai.netlogger.databinding.ScreenDetailLogBinding
@@ -29,63 +30,65 @@ class DetailLogScreen :
                 data.request?.headers?.forEach { (type, value) ->
                     head = "$head \n$type : $value"
                 }
-                with(binding) {
-                    try {
-                        url.text = data.url
-                        method.text = data.request?.method
-                        header.text = head
-                        header.isVisible = head.isNotEmpty()
-                        textView2.isVisible = head.isNotEmpty()
-                        code.text = data.response?.code.toString()
-                        if (data.response?.code == 200) {
-                            code.setTextColor(activity.getColor(R.color.green))
-                            method.setTextColor(activity.getColor(R.color.green))
-                            url.setTextColor(activity.getColor(R.color.green))
-                        } else {
-                            method.setTextColor(activity.getColor(R.color.red))
-                            url.setTextColor(activity.getColor(R.color.red))
-                            code.setTextColor(activity.getColor(R.color.red))
+                withSafeContext {activity ->
+                    with(binding) {
+                        try {
+                            url.text = data.url
+                            method.text = data.request?.method
+                            header.text = head
+                            header.isVisible = head.isNotEmpty()
+                            textView2.isVisible = head.isNotEmpty()
+                            code.text = data.response?.code.toString()
+                            if (data.response?.code == 200) {
+                                code.setTextColor(activity.getColor(R.color.green))
+                                method.setTextColor(activity.getColor(R.color.green))
+                                url.setTextColor(activity.getColor(R.color.green))
+                            } else {
+                                method.setTextColor(activity.getColor(R.color.red))
+                                url.setTextColor(activity.getColor(R.color.red))
+                                code.setTextColor(activity.getColor(R.color.red))
+                            }
+                            data.request?.body?.requestBodyToJson()?.let { body ->
+                                ctnBody.bindJson(body)
+                                ctnBody.expandAll()
+                                bodyText.text = body
+                            } ?: kotlin.run {
+                                ctnBody.isVisible = false
+                                txtBody.isVisible = false
+                                bodyText.isVisible = false
+                            }
+                            data.responseBody.let { body ->
+                                rvJsonResponse.bindJson(body)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
+                            activity.navController?.popBackStack()
                         }
-                        data.request?.body?.requestBodyToJson()?.let { body ->
-                            ctnBody.bindJson(body)
-                            ctnBody.expandAll()
-                            bodyText.text = body
-                        } ?: kotlin.run {
-                            ctnBody.isVisible = false
-                            txtBody.isVisible = false
-                            bodyText.isVisible = false
+                        btnCopyUrl.safeClick {
+                            activity.copyToClipboard(data.url)
+                            Toast.makeText(activity, "Url Copied", Toast.LENGTH_SHORT).show()
                         }
-                        data.responseBody.let { body ->
-                            rvJsonResponse.bindJson(body)
+                        btnCopyResponse.safeClick {
+                            activity.copyToClipboard(data.responseBody)
+                            Toast.makeText(activity, "Response Copied", Toast.LENGTH_SHORT).show()
                         }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
-                        activity.navController?.popBackStack()
-                    }
-                    btnCopyUrl.safeClick {
-                        activity.copyToClipboard(data.url)
-                        Toast.makeText(activity, "Url Copied", Toast.LENGTH_SHORT).show()
-                    }
-                    btnCopyResponse.safeClick {
-                        activity.copyToClipboard(data.responseBody)
-                        Toast.makeText(activity, "Response Copied", Toast.LENGTH_SHORT).show()
-                    }
-                    btnCopyHeader.safeClick {
-                        activity.copyToClipboard(header.text.toString())
-                        Toast.makeText(activity, "Header Copied", Toast.LENGTH_SHORT).show()
-                    }
-                    btnCopyBodyRequest.safeClick {
-                        activity.copyToClipboard(bodyText.text.toString())
-                        Toast.makeText(activity, "Body Request Copied", Toast.LENGTH_SHORT).show()
-                    }
+                        btnCopyHeader.safeClick {
+                            activity.copyToClipboard(header.text.toString())
+                            Toast.makeText(activity, "Header Copied", Toast.LENGTH_SHORT).show()
+                        }
+                        btnCopyBodyRequest.safeClick {
+                            activity.copyToClipboard(bodyText.text.toString())
+                            Toast.makeText(activity, "Body Request Copied", Toast.LENGTH_SHORT).show()
+                        }
 
-                    btnBack.safeClick {
-                        activity.navController?.popBackStack()
-                    }
-                    txtBody.safeClick {
-                        ctnBody.isVisible = !ctnBody.isVisible
-                        bodyText.isVisible = !bodyText.isVisible
+                        btnBack.safeClick {
+                            activity.navController?.popBackStack()
+                        }
+                        txtBody.safeClick {
+                            ctnBody.isVisible = !ctnBody.isVisible
+                            bodyText.isVisible = !bodyText.isVisible
+                        }
                     }
                 }
             }

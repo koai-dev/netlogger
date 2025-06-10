@@ -3,7 +3,7 @@ package com.koai.netlogger.ui.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.koai.base.main.viewmodel.BaseViewModel
+import com.koai.base.core.viewmodel.BaseViewModel
 import com.koai.netlogger.model.NetLogItem
 import com.koai.netlogger.repository.INetLogRepository
 

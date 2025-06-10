@@ -7,8 +7,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.koai.base.main.BaseActivity
-import com.koai.base.main.action.router.BaseRouter
+import com.koai.base.app.BaseActivity
+import com.koai.base.core.action.router.BaseRouter
 import com.koai.base.utils.LogUtils
 import com.koai.netlogger.databinding.ActivityNetLoggerBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel

@@ -1,6 +1,6 @@
 package com.koai.netlogger
 
-import com.koai.base.main.action.navigator.BaseNavigator
+import com.koai.base.core.action.navigator.BaseNavigator
 import com.koai.netlogger.ui.detail.DetailLogRouter
 import com.koai.netlogger.ui.list.ListLogRouter
 
