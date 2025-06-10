@@ -49,9 +49,13 @@ android {
         }
     }
 }
-
+val enableEditCore = project.findProperty("enableEditCore") == "true"
 dependencies {
-    implementation(libs.base)
+    if (enableEditCore) {
+        implementation(project(":core"))
+    } else {
+        implementation(libs.basedev)
+    }
 }
 
 afterEvaluate {
